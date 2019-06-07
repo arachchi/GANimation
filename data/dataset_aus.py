@@ -12,6 +12,7 @@ class AusDataset(DatasetBase):
     def __init__(self, opt, is_for_train):
         super(AusDataset, self).__init__(opt, is_for_train)
         self._name = 'AusDataset'
+        self.img_format = opt.img_format
 
         # read dataset
         self._read_dataset_paths()
@@ -105,7 +106,7 @@ class AusDataset(DatasetBase):
             return None
 
     def _get_img_by_id(self, id):
-        filepath = os.path.join(self._imgs_dir, id+'.jpg')
+        filepath = os.path.join(self._imgs_dir, '%s.%s' % (id, self.img_format))
         return cv_utils.read_cv2_img(filepath), filepath
 
     def _generate_random_cond(self):
