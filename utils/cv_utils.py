@@ -4,15 +4,15 @@ import numpy as np
 
 def read_cv2_img(path):
     '''
-    Read color images
+    Read images
     :param path: Path to image
-    :return: Only returns color images
+    :return: 3-ch images (convert 1-ch to 3-ch)
     '''
     img = cv2.imread(path, -1)
 
     if img is not None:
-        if len(img.shape) != 3:
-            return None
+        if len(img.shape) == 2:
+            img = img[:, :, np.newaxis].repeat(3, 2)
 
         img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
