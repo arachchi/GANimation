@@ -26,13 +26,16 @@ def main():
             torch.Tensor(x[np.newaxis, np.newaxis]), scale_factor=3, mode='bilinear', align_corners=False
         ).squeeze().numpy().astype(np.int32)
     )
+    df.pixels = df.pixels.map(
+        lambda x: x[:, :, np.newaxis].repeat(3, 2)
+    )
 
     list_train = []
     list_test = []
 
     for item in tqdm(df.iterrows()):
         img_id, row = item
-        img_name = '%05d_%s_%s.png' % (img_id, row.emotion, row.Usage)
+        img_name = '%05d_%s_%s.jpg' % (img_id, row.emotion, row.Usage)
         cv2.imwrite(os.path.join(img_dir, img_name), row.pixels)
 
         if row.Usage == 'Training':
