@@ -123,9 +123,10 @@ class GANimation(BaseModel):
     def forward(self, keep_data_for_visuals=False, return_estimates=False):
         if not self._is_train:
             # convert tensor to variables
-            real_img = Variable(self._input_real_img, volatile=True)
-            real_cond = Variable(self._input_real_cond, volatile=True)
-            desired_cond = Variable(self._input_desired_cond, volatile=True)
+            with torch.no_grad():
+                real_img = Variable(self._input_real_img)
+                real_cond = Variable(self._input_real_cond)
+                desired_cond = Variable(self._input_desired_cond)
 
             # generate fake images
             fake_imgs, fake_img_mask = self._G.forward(real_img, desired_cond)
