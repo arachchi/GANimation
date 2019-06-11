@@ -23,7 +23,7 @@ def main():
     df.pixels = df.pixels.map(lambda x: np.asarray(x.split(' '), dtype=np.float32).reshape(48, 48))
     df.pixels = df.pixels.map(
         lambda x: F.interpolate(
-            torch.Tensor(x[np.newaxis, np.newaxis]), scale_factor=2, mode='bilinear', align_corners=False
+            torch.Tensor(x[np.newaxis, np.newaxis]), scale_factor=3, mode='bilinear', align_corners=False
         ).squeeze().numpy().astype(np.int32)
     )
 
