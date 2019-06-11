@@ -25,7 +25,7 @@ class TBVisualizer:
         for label, image_numpy in visuals.items():
             sum_name = '{}/{}'.format('Train' if is_train else 'Test', label)
             import ipdb; ipdb.set_trace()
-            self._writer.add_image(sum_name, image_numpy, it)
+            self._writer.add_image(sum_name, image_numpy, it, dataformats='NHWC')
 
             if save_visuals:
                 util.save_image(image_numpy,
