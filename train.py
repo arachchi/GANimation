@@ -124,7 +124,7 @@ class Train:
                     val_errors[k] = v
 
         # normalize errors
-        for k in val_errors.iterkeys():
+        for k in val_errors.keys():
             val_errors[k] /= self._opt.num_iters_validate
 
         # visualize
