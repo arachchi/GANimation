@@ -10,7 +10,6 @@ import os
 class Train:
     def __init__(self):
         self._opt = TrainOptions().parse()
-        import ipdb; ipdb.set_trace()
         data_loader_train = CustomDatasetDataLoader(self._opt, is_for_train=True)
         data_loader_test = CustomDatasetDataLoader(self._opt, is_for_train=False)
 
