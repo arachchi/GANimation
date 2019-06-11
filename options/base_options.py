@@ -9,11 +9,11 @@ class BaseOptions():
         self._initialized = False
 
     def initialize(self):
-        self._parser.add_argument('--data_dir', type=str, help='path to dataset')
+        self._parser.add_argument('--data_dir', type=str, default='fer2013', help='path to dataset')
         self._parser.add_argument('--train_ids_file', type=str, default='train_ids.csv', help='file containing train ids')
         self._parser.add_argument('--test_ids_file', type=str, default='test_ids.csv', help='file containing test ids')
         self._parser.add_argument('--images_folder', type=str, default='imgs', help='images folder')
-        self._parser.add_argument('--aus_file', type=str, default='aus_openface.pkl', help='file containing samples aus')
+        self._parser.add_argument('--aus_file', type=str, default='aus.pkl', help='file containing samples aus')
         self._parser.add_argument('--img_format', type=str, default='png')
 
         self._parser.add_argument('--load_epoch', type=int, default=-1, help='which epoch to load? set to -1 to use latest cached model')
@@ -46,7 +46,7 @@ class BaseOptions():
         self._set_and_check_load_epoch()
 
         # get and set gpus
-        self._get_set_gpus()
+        # self._get_set_gpus()
 
         args = vars(self._opt)
 
