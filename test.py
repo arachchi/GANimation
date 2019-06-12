@@ -23,13 +23,14 @@ class MorphFacesInTheWild:
                                                                    std=[0.5, 0.5, 0.5])
                                               ])
 
-    def morph_file(self, img_path, expresion):
+    def run(self, img_path, expresion):
         img = cv_utils.read_cv2_img(img_path)
-        morphed_img = self._img_morph(img, expresion)
+        morphed_img = self.modify_face(img, expresion)
         output_name = '%s_out.png' % os.path.basename(img_path)
         self._save_img(morphed_img, output_name)
 
-    def _img_morph(self, img, expresion):
+    def modify_face(self, img, expresion):
+        # get face part
         bbs = face_recognition.face_locations(img)
         if len(bbs) > 0:
             y, right, bottom, x = bbs[0]
@@ -37,8 +38,9 @@ class MorphFacesInTheWild:
             face = face_utils.crop_face_with_bb(img, bb)
             face = face_utils.resize_face(face)
         else:
-            face = face_utils.resize_face(img)
+            face = face_utils.resize_face(img)  # 128x128
 
+        # modify face by expression
         morphed_face = self._morph_face(face, expresion)
 
         return morphed_face
@@ -66,7 +68,7 @@ def main():
 
     image_path = opt.input_path
     expression = np.random.uniform(0, 1, opt.cond_nc)
-    morph.morph_file(image_path, expression)
+    morph.run(image_path, expression)
 
 
 
