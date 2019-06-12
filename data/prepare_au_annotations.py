@@ -15,7 +15,9 @@ def get_data(filepaths):
     data = dict()
     for filepath in tqdm(filepaths):
         content = np.loadtxt(filepath, delimiter=', ', skiprows=1)
-        data[os.path.basename(filepath[:-4])] = content[2:19]
+        content = content[2:19]
+        if content.shape[0] == 17:
+            data[os.path.basename(filepath[:-4])] = content
 
     return data
 
@@ -33,7 +35,6 @@ def main():
     if not os.path.isdir(args.output_path):
         os.makedirs(args.output_path)
     save_dict(data, os.path.join(args.output_path, "aus"))
-
 
 if __name__ == '__main__':
     main()
